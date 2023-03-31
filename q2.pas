@@ -42,13 +42,10 @@ begin
     end;
 
     if flag then
-        writeLn('TRUE')
-    else
+        writeLn('TRUE');
+    for j := 'a' to 'z' do
     begin
-        for j := 'a' to 'z' do
-        begin
-            if hist1[j] + hist2[j] > 0 then
-                writeLn(j, ' ', hist1[j]+hist2[j]);
-        end;
+        if hist1[j] + hist2[j] > 0 then
+            writeLn(j, ' ', hist1[j]+hist2[j]);
     end;
 end.
