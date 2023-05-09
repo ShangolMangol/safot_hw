@@ -1,8 +1,5 @@
 use "hw3_q1_def.sml";
 
-type frame = string list; 
-type state = bool list list;
-
 fun mapState f s = foldr (fn (x, acc) => (map f x)::acc) [] s;
 
 fun toString lst = foldr (fn (x, acc) => (Char.toString x)^acc) "" lst;
