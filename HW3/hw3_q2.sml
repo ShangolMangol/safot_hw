@@ -53,15 +53,24 @@ fill false 3;
 functor Kernel2D (Elt : KERNEL2D_SIG) =
 struct
   local
-    structure tempKernel = Kernel1D(struct
-	type source = Elt.source list
-	type target = Elt.target list
-	fun kernel a b c = Elt.kernel (hd (zip a b c))
-	fun default _::x::_ = Elt.default x
+    structure zipKernel = Kernel1D(struct
+      type source = Elt.source list
+      type target = (Elt.source * Elt.source * Elt.source) list
+      val kernel = zip
+      fun default x = fill (Elt.default (List.hd x)) (List.length x)
     end);
-    tempKernel.runKernel 
+
+
+  structure actionKernel = Kernel1D(struct
+      type source = (Elt.source * Elt.source * Elt.source)
+      type target = Elt.target
+      val kernel = Elt.kernel
+      fun default (x: source) = (Elt.default(#2 x), Elt.default(#2 x), Elt.default(#2 x))
+    end);
+    
+    fun helperFunc lst = actionKernel.runKernel lst
   in
-    fun runKernel lst = Elt.kernel zip lst
+    fun runKernel lst = map helperFunc (zipKernel.runKernel lst)
   end
 end;
 

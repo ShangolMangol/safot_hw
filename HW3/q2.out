@@ -1,0 +1,69 @@
+Standard ML of New Jersey (64-bit) v110.99.2 [built: Sun Mar 20 20:10:23 2022]
+[opening hw3_q2.sml]
+[opening hw3_q2_def.sml]
+signature KERNEL1D_SIG =
+  sig
+  type source
+  type target
+  val kernel : source -> source -> source -> target
+  val default : source -> source
+end
+signature KERNEL2D_SIG =
+  sig
+  type source
+  type target
+  val kernel :
+      source * source * source
+       -> source * source * source -> source * source * source -> target
+  val default : source -> source
+end
+val it = () : unit
+functor Kernel1D(Elt: sig
+  type source
+  type target
+  val kernel : source -> source -> source -> target
+  val default : source -> source
+end) :
+sig
+  val runKernel : Elt.source list -> Elt.target list
+end
+val sum = fn : int -> int -> int -> int
+structure SumKernel : sig
+  val runKernel : Elt.source list -> Elt.target list
+end
+val it = [3,6,9,7] : int list
+exception SizeNotEqual
+val zip = fn : 'a list -> 'b list -> 'c list -> ('a * 'b * 'c) list
+val it = [(1,4,7),(2,5,8),(3,6,9)] : (int * int * int) list
+exception NegativeLength
+val fill = fn : 'a -> int -> 'a list
+val it = [false,false,false] : bool list
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+functor Kernel2D(Elt: sig
+  type source
+  type target
+  val kernel :
+      source * source * source
+       -> source * source * source -> source * source * source -> target
+  val default : source -> source
+end) :
+sig
+  val runKernel : source list -> target list list
+end
+- val sum = fn : int -> int -> int -> int
+structure SumKernel1D : sig
+  val runKernel : Elt.source list -> Elt.target list
+end
+structure SumKernel2D : sig
+  val runKernel : source list -> target list list
+end
+===TEST START===
+val it = () : unit
+val test1 = "PASSED" : string
+val test2 = "PASSED" : string
+val test3 = "PASSED" : string
+val test4 = "PASSED" : string
+
