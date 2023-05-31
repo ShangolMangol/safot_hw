@@ -11,7 +11,6 @@ in
     fun runCycle initFrame = stateToFrame (cycleKernel.runKernel (frameToState initFrame));
 end;
 
-runCycle [" *** ", " * * ", " *** "];
 
 fun gameOfLife initFrame = 
     let
@@ -20,12 +19,6 @@ fun gameOfLife initFrame =
       fn () => (printFrame (!curFrame) ; curFrame := runCycle (!curFrame))
     end
     
-val game = gameOfLife [" *** ", " * * ", " *** "];
-game();
-game();
-game();
-
-run (gameOfLife start_frame) 100 0.5;
 
 
 
