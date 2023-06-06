@@ -15,59 +15,6 @@ hw4_q2.sml:21.8-25.90 Warning: match nonexhaustive
           (f,notDone Nil,x :: queue,finished) => ...
   
 val map = fn : ('a -> 'b) -> 'a tree -> 'b tree
-val test1 = Br (0,Br (2,Nil,Nil),Br (4,Nil,Nil)) : int tree
-val test2 = Br (4,Br (3,Nil,Nil),Br (2,Nil,Nil)) : int tree
-val test3 = Br (1,Br (4,Nil,Nil),Br (9,Nil,Nil)) : int tree
-val test4 = Br (15,Br (16,Nil,Nil),Br (17,Nil,Nil)) : int tree
-val test5 = Br ("a",Br ("b",Nil,Nil),Br ("c",Nil,Nil)) : string tree
-val test6 = Br ("runing",Br ("jumping",Nil,Nil),Br ("walking",Nil,Nil)) :
-  string tree
-val test7 = Nil : int tree
-hw4_q2.sml:57.16 Warning: calling polyEqual
-val assertEqual = fn : ''a * ''a -> unit
-val test1 =
-  (Br (1,Br (2,Nil,Nil),Br (3,Br (4,Nil,Nil),Br (5,Nil,Nil))),
-   Br (1,Br (2,Nil,Nil),Br (3,Br (4,Nil,Nil),Br (5,Nil,Nil)))) :
-  int tree * int tree
-Test passed
-val it = () : unit
-val test2 =
-  (Br (4,Br (9,Br (16,Nil,Nil),Nil),Br (25,Nil,Nil)),
-   Br (4,Br (9,Br (16,Nil,Nil),Nil),Br (25,Nil,Nil))) : int tree * int tree
-Test passed
-val it = () : unit
-val test3 =
-  (Br (6,Br (12,Br (20,Nil,Nil),Nil),Br (30,Nil,Nil)),
-   Br (6,Br (12,Br (20,Nil,Nil),Nil),Br (30,Nil,Nil))) : int tree * int tree
-Test passed
-val it = () : unit
-val test4 =
-  (Br ("odd",Br ("even",Br ("odd",Nil,Nil),Nil),Br ("even",Nil,Nil)),
-   Br ("odd",Br ("even",Br ("odd",Nil,Nil),Nil),Br ("even",Nil,Nil))) :
-  string tree * string tree
-Test passed
-val it = () : unit
-val test5 =
-  (Br ((0,1),Br ((1,2),Nil,Nil),Br ((2,3),Nil,Nil)),
-   Br ((0,1),Br ((1,2),Nil,Nil),Br ((2,3),Nil,Nil))) :
-  (int * int) tree * (int * int) tree
-Test passed
-val it = () : unit
-val test6 =
-  (Br (type2 "small",Br (type1 12,Nil,Nil),Br (type2 "small",Nil,Nil)),
-   Br (type2 "small",Br (type1 12,Nil,Nil),Br (type2 "small",Nil,Nil))) :
-  (int,string) union tree * (int,string) union tree
-Test passed
-val it = () : unit
-val test7 =
-  (Br
-     ("OpenAI is awesome!",Br ("GPT-3 is awesome!",Nil,Nil),
-      Br ("ChatGPT is awesome!",Nil,Nil)),
-   Br
-     ("OpenAI is awesome!",Br ("GPT-3 is awesome!",Nil,Nil),
-      Br ("ChatGPT is awesome!",Nil,Nil))) : string tree * string tree
-Test passed
-val it = () : unit
 - ===TEST START===
 val it = () : unit
 val it = [0,1,2] : int list

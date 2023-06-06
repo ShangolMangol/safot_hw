@@ -11,7 +11,7 @@ exception SeqErr;
 (* fun new Cons(k, f) = BiCons(Cons(k,f), fn () => new Cons(k-1,f)); *)
 
 fun new (Cons(k,f)) = (0, Cons(k,f), [(0, Cons(k,f))])
-   | new Nil = raise SeqErr;
+   | new Nil = (~2, Nil, []);
 
 fun curr (i, Nil, lst) = raise SeqErr
   | curr (i, (Cons(k,f)), lst) = k;
@@ -25,7 +25,8 @@ local
     | listFind i ((j, x)::xs) = if i = j then (j, x) else listFind i xs
 
 in
-  fun next (~1, Nil, lst) = 
+  fun next (~2, Nil, lst) = raise SeqErr
+    | next (~1, Nil, lst) = 
       let
         val (resultCode, nextNode) = listFind 0 lst
       in
@@ -46,7 +47,8 @@ in
     end
 
 
-  fun prev (~1, Nil, lst) = raise SeqErr
+  fun prev (~2, Nil, lst) = raise SeqErr
+    | prev (~1, Nil, lst) = raise SeqErr
     | prev (0, Cons(k,f), lst) = (~1, Nil, lst)
     | prev (i, _, lst) = 
         let
