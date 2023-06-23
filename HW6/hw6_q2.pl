@@ -13,5 +13,20 @@ topological_sort_aux(graph(G), S, Q) :- find_root(graph(G), Q, Root), append(Q, 
 
 topological_sort(graph(G), S) :- topological_sort_aux(graph(G), S, []), length(G, N), length(S, N).
 
+already_in(X, [[X|_]|_]) :- !.
+already_in(X, [[_|Xs]|Q]) :- already_in(X, [Xs|Q]).
+already_in(X, [_|Q]) :- already_in(X, Q).
+
+get_scc(graph(G), _, [], I) :- length(G,N), I is N+1, !.
+get_scc(graph(G), Root, SCC, I) :- length(G, N), X in I..N, indomain(X), path(graph(G), Root, X, _)
+                                    , path(graph(G), X, Root, _) ->  Y is X+1,
+                                    get_scc(graph(G), Root, SCCN, Y), append([X], SCCN, SCC).
+
+get_scc_outer(graph(G), Root, SCC) :- get_scc(graph(G), Root, SCC, 1), ! ; append([], [Root], SCC).
 
 
+scc_aux(graph(G), S, Q) :- length(G,N), X in 1..N, indomain(X), \+ already_in(X, Q) -> get_scc_outer(graph(G), X, SCC), 
+                            append(Q, [SCC], QN), scc_aux(graph(G), SN, QN), append([SCC], SN, S).
+scc_aux(graph(_), [], _) :- !.
+
+scc(graph(G), S) :- scc_aux(graph(G), S, []).
